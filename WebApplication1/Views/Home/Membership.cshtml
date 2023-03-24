@@ -1,0 +1,22 @@
+﻿
+@{
+    ViewBag.Title = "Membership";
+
+}
+
+<h1>會員中心</h1>
+<div>
+    <h3>修改會員資料</h3>
+    
+        @if (Session["Username"] != null)
+        {
+            <ul>
+                <li><span id="name">會員名字 : </span><input id="name_value" value="@Session["Username"].ToString()" /></li>
+                <li><span id="email">電子郵件 : </span><input id="email_value"value="@Session["Email"].ToString()" /></li>
+                <li><span id="password">會員密碼 : </span><input id="password_value"value="@Session["Password"].ToString()" /></li>
+            </ul>
+        }
+</div>
+
+<div><h3>訂單查詢</h3></div>
+

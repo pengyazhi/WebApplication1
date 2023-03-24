@@ -1,0 +1,74 @@
+﻿
+@{
+    ViewBag.Title = "JoinMembership";
+}
+
+<html>
+<head>
+
+</head>
+<body>
+    <!--
+        <span id="exist_email" style="color:red">@ViewBag.EmailExist</span>
+    -->
+    <form id="join_member" action="JoinStatus" method="post" onsubmit='return formCheck()'>
+        <h2>加入會員</h2>
+        <div>
+            <span>姓名 :</span>
+            <input required type="text" name="name" placeholder="請輸入您的大名" /><br />
+            <span>會員帳號 :</span>
+            <input required value="" type="email" name="email" id="email" placeholder="請輸入e-mail" /><span style="color:red" id="email-error"></span><br />
+            <span>會員密碼 :</span>
+            <input required value="" type="password" name="password" id="password1" placeholder="請輸入密碼" /><br />
+            <span>密碼確認 :</span>
+            <input required value="" type="password" name="password2" id="password2" placeholder="請再次輸入密碼" /><p style="display:inline;color:red;" id="wrongPassword"></p><br />
+            <button type="submit" id="submit">確認 </button>
+        </div>
+    </form>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        const password1 = document.getElementById("password1");
+        const password2 = document.getElementById("password2");
+        const checkPassword = document.getElementById("wrongPassword");
+        const joinMember = document.getElementById("join_member");
+        const emailError = document.getElementById("email-error");
+        //const email = document.getElementById("email");
+
+        $('#email').on('blur', function () {
+            if ($('#email').val() !== '') {
+                var email = $('#email').val();
+                $.ajax({
+                    url: '/Membership/CheckIfEmailExist', // 請填入檢查email是否存在的Action名稱
+                    type: 'POST',
+                    data: { email: email },
+                    success: function (emailExist) {
+                        if (emailExist) {
+                            $('#email-error').text('該email已存在');
+                        } else {
+                            $('#email-error').text('');
+                        }
+                    }
+                });
+            }
+        });
+        function passwordCheck() {
+            if (password2.value !== password1.value) {
+                checkPassword.innerHTML = " *密碼輸入不符合,請重新輸入";
+            } else {
+                checkPassword.innerHTML = "";
+            }
+        }
+        addEventListener('input', passwordCheck);
+        function formCheck() {
+            if (password2.value === password1.value && emailError.textContent.trim() === '') {
+                return true;
+            } else {
+                return false;
+            }
+        }
+
+
+    </script>
+</body>
+</html>
+

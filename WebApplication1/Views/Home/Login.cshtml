@@ -1,0 +1,40 @@
+﻿
+@{
+    ViewBag.Title = "Login";
+}
+
+<html>
+<head>
+    <style>
+        body {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <h1>登入</h1>
+    </div>
+    <form action="\Membership\Login" method="post">
+        <div>
+            <span>帳號 :</span>
+            <input required type="text" name="email" placeholder="請輸入E-mail" /> <br />
+            <span>密碼 :</span>
+            <input required type="password" name="password" placeholder="請輸入密碼" /> <br />
+            <input type="submit" name="submit" value="登入" /><br />
+        </div>
+        <div id="error" class="text-danger">@TempData["ErrorMessage"]</div>
+    </form>
+    <span id="confirm">還不是會員嗎?</span>
+    @Html.ActionLink("加入會員", "JoinMembership", "Membership", new { area = "" },null) <!--null表示不使用區域名稱,如果省略會出錯-->
+    <script>
+        let error = document.getElementById('error');
+        let confirm = document.getElementById('confirm');
+        if (error.textContent.trim() !== '') {
+            confirm.style.color = "red";
+            confirm.style.fontWeight = "bold";
+        }
+    </script>
+</body>
+</html>
+

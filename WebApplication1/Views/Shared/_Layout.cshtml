@@ -1,0 +1,61 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - 我的 ASP.NET 應用程式</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+</head>
+<body>
+    <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-dark">
+        <div class="container">
+            @Html.ActionLink("應用程式名稱", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+            <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" title="切換導覽" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse d-sm-inline-flex justify-content-between">
+                <ul class="navbar-nav flex-grow-1">
+                    <li>@Html.ActionLink("首頁", "Index", "Home", new { area = "" }, new { @class = "nav-link" })</li>
+                    <li>@Html.ActionLink("關於", "About", "Home", new { area = "" }, new { @class = "nav-link" })</li>
+                    <li>@Html.ActionLink("連絡人", "Contact", "Home", new { area = "" }, new { @class = "nav-link" })</li>
+                    <li>@Html.ActionLink("Privacy", "Privacy", "Home", new { area = "" }, new { @class = "nav-link" })</li>
+                </ul>
+                <ul class="navbar-nav ml-auto">
+                    <li id="login">@Html.ActionLink("登入", "Login", "Home", new { area = "" }, new { @class = "nav-link" })</li>
+                    @if (Session["Username"] != null)
+                    {
+                        <li class="collapse navbar-collapse d-sm-inline-flex justify-content-between" style="color:whitesmoke;font-weight:bold">歡迎回來，@Session["Username"].ToString()！</li><!-- 顯示使用者名稱 -->
+                        <li class="collapse navbar-collapse d-sm-inline-flex justify-content-between" id="logout">@Html.ActionLink("登出", "Logout", "Membership", new { area = "" }, new { @class = "nav-link" })</li><!-- 顯示登出按鈕 -->
+                        <li class="collapse navbar-collapse d-sm-inline-flex justify-content-between" id="logout">@Html.ActionLink("會員中心", "Membership", "Home", new { area = "" }, new { @class = "nav-link" })</li><!-- 顯示登出按鈕 -->
+                        <li class="collapse navbar-collapse d-sm-inline-flex justify-content-between" id="logout">@Html.ActionLink("追蹤清單", "", "", new { area = "" }, new { @class = "nav-link" })</li><!-- 顯示登出按鈕 -->
+
+                    }
+                    <li>@Html.ActionLink("購物車", "ShoppingCart", "Home", new { area = "" }, new { @class = "nav-link" })</li>
+
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+        <footer>
+            <p>&copy; @DateTime.Now.Year - 我的 ASP.NET 應用程式</p>
+        </footer>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+<script>
+    let Login = document.getElementById('login');
+    let Logout = document.getElementById('logout');
+    if (Logout != null) {
+        Login.innerText = '';
+    }
+</script>
+</body>
+</html>

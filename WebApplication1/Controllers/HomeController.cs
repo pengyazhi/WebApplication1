@@ -32,10 +32,6 @@ namespace WebApplication1.Controllers
         }
         public ActionResult Login()
         {
-            /*if (TempData.ContainsKey("ErrorMessage"))
-            {
-                ViewBag.Message = TempData["ErrorMessage"].ToString();
-            }*/
             return View();
         }
 

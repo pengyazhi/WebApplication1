@@ -24,6 +24,7 @@ namespace WebApplication1.Controllers
         [HttpPost]
         public JsonResult CheckIfEmailExist(string email)
         {
+            ConnectDB();
             // 檢查 DB 是否存在該筆資料*/
             bool emailExist = db.IsEmailExist(email);
             return Json(emailExist);
@@ -33,6 +34,7 @@ namespace WebApplication1.Controllers
         [HttpPost]
         public ActionResult Login(string email, string password)
         {
+            ConnectDB(); 
             string MembershipExist = db.IsMembershipExist(email, password);
             if (MembershipExist != null)
             {
@@ -57,6 +59,7 @@ namespace WebApplication1.Controllers
         [HttpPost]
         public ActionResult JoinStatus(string name, string email, string password)
         {
+            ConnectDB();
             bool IsEmailSaved = db.IsEmailExist(email);
             if (IsEmailSaved)
             {
@@ -73,6 +76,7 @@ namespace WebApplication1.Controllers
         }
         public void UpdateMembership(string name, string email, string password)
         {
+            ConnectDB();
             db.IfMembershipChanged(name, email, password);
         }
     }

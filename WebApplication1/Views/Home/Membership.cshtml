@@ -6,16 +6,51 @@
 
 <h1>會員中心</h1>
 <div>
-    <h3>修改會員資料</h3>
-    
-        @if (Session["Username"] != null)
+    <h3>會員資料</h3>
+
+    @if (Session["Username"] != null)
         {
-            <ul>
-                <li><span id="name">會員名字 : </span><input id="name_value" value="@Session["Username"].ToString()" /></li>
-                <li><span id="email">電子郵件 : </span><input id="email_value"value="@Session["Email"].ToString()" /></li>
-                <li><span id="password">會員密碼 : </span><input id="password_value"value="@Session["Password"].ToString()" /></li>
-            </ul>
+            <form action="/Membership/UpdateMembership" method="post">
+                <ul>
+                    <li><span id="name">會員名字 : </span><input id="name_value" value="@Session["Username"].ToString()" /></li>
+                    <li><span id="email">電子郵件 : </span><input id="email_value" value="@Session["Email"].ToString()" /></li>
+                    <li><span id="password">會員密碼 : </span><input id="password_value" value="@Session["Password"].ToString()" /></li>
+                </ul>
+            <input value="修改" type="button" id="revise" name="revise"/>
+            <input value="更新" type="submit" id="update" name="update" style="display:none"/>
+            <input value="清空" type="reset" id="clear" name="clear" style="display:none"/>
+            <input value="取消" type="button" id="cancel" name="cancel" style="display:none" />
+            </form>        
         }
+    
+    <script>
+        var reviseButton = document.getElementById('revise');
+        var updateButton = document.getElementById('update');
+        var clearButton = document.getElementById('clear');
+        var cancelButton = document.getElementById('cancel')
+        var nameInput = document.getElementById('name_value');
+        var emailInput = document.getElementById('email_value');
+        var passwordInput = document.getElementById('password_value');
+        emailInput.disabled = true;
+        nameInput.disabled = true;
+        passwordInput.disabled = true;
+        // 在頁面載入後註冊事件處理程序
+        window.addEventListener('load', function () {
+            // 當使用者按下修改按鈕時，啟用輸入欄位並顯示更新按鈕
+            reviseButton.addEventListener('click', function () {
+                nameInput.removeAttribute('disabled');
+                emailInput.removeAttribute('disabled');
+                passwordInput.removeAttribute('disabled');
+                updateButton.style.display = 'inline';
+                clearButton.style.display = 'inline';
+                cancelButton.style.display = 'inline';
+            });
+        });
+        cancelButton.addEventListener('click', function () {
+            location.reload();
+        });
+
+    </script>
 </div>
 
 <div><h3>訂單查詢</h3></div>

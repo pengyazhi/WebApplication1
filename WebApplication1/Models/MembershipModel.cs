@@ -42,9 +42,11 @@ namespace WebApplication1.Models
             using (var connection = new SqlConnection(connectionString))
             using (var command = new SqlCommand(query, connection))
             {
+
                 command.Parameters.AddWithValue("@name", name);
                 command.Parameters.AddWithValue("@email", email);
                 command.Parameters.AddWithValue("@password", password);
+                connection.Open();
                 command.ExecuteNonQuery();
             }
         }
@@ -58,16 +60,6 @@ namespace WebApplication1.Models
                 command.Parameters.AddWithValue("@password", password);
 
                 connection.Open();
-                /* using (var reader = command.ExecuteReader())
-                 {
-                     var results = new List<string>();
-                     while (reader.Read())
-                     {
-                         var name = reader.GetString(0);
-                         results.Add(name);
-                     }
-                     return results.ToArray();
-                 }*/
 
                 var result = (string)command.ExecuteScalar();
                 return result;
@@ -89,13 +81,14 @@ namespace WebApplication1.Models
         }
         public void IfMembershipChanged(string name, string email, string password)
         {
-            var query = "UPDATE Membership SET name = @name, password = @password,email = @email WHERE email = @email";
+            var query = "UPDATE Membership SET UPDATE Membership SET name = @name, password = @password, email = @email WHERE email = @email";
             using (var connection = new SqlConnection(connectionString))
             using (var command = new SqlCommand(query, connection))
             {
                 command.Parameters.AddWithValue("@name", name);
                 command.Parameters.AddWithValue("@email", email);
                 command.Parameters.AddWithValue("@password", password);
+                
 
                 connection.Open();
                 command.ExecuteNonQuery();

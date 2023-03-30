@@ -136,6 +136,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\emailError.css" />
     <Content Include="Content\bootstrap-grid.css" />
     <Content Include="Content\bootstrap-grid.min.css" />
     <Content Include="Content\bootstrap-grid.rtl.css" />
@@ -191,9 +192,9 @@
     <Content Include="Views\Home\Service.cshtml" />
     <Content Include="Views\Home\ShoppingCart.cshtml" />
     <Content Include="Views\Membership\ExistMember.cshtml" />
-    <Content Include="Views\Membership\JoinStatus.cshtml" />
     <Content Include="Views\Membership\JoinMembership.cshtml" />
     <Content Include="Views\Home\Membership.cshtml" />
+    <Content Include="Views\Home\TrackList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

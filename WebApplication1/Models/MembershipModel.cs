@@ -6,6 +6,9 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.WebSockets;
 using WebApplication1.Models;
+using WebApplication1.Controllers;
+using System.Runtime.Remoting.Messaging;
+using System.Web.Script.Serialization;
 
 namespace WebApplication1.Models
 {
@@ -50,19 +53,31 @@ namespace WebApplication1.Models
                 command.ExecuteNonQuery();
             }
         }
-        public string IsMembershipExist(string email, string password)
+        public object IsMembershipExist(string email, string password)
         {
-            var query = "SELECT name FROM Membership WHERE email = @email AND password = @password";
+            var queryName = "SELECT name,id FROM Membership WHERE email = @email AND password = @password";
             using (var connection = new SqlConnection(connectionString))
-            using (var command = new SqlCommand(query, connection))
+            using (var command = new SqlCommand(queryName, connection))
             {
                 command.Parameters.AddWithValue("@email", email);
                 command.Parameters.AddWithValue("@password", password);
 
                 connection.Open();
 
-                var result = (string)command.ExecuteScalar();
-                return result;
+                using (var reader = command.ExecuteReader())
+                {
+                    if (reader.Read())
+                    {
+                        var name = (string)reader["name"];
+                        var id = (int)reader["id"];
+                        return Tuple.Create(name, id);
+
+                    }
+                    else
+                    {
+                        return null;
+                    }
+                }
             }
         }
         public bool IsEmailExist(string email)
@@ -79,20 +94,46 @@ namespace WebApplication1.Models
                 return result > 0;
             }
         }
-        public void IfMembershipChanged(string name, string email, string password)
+
+
+        public Tuple<string,string,string> IfMembershipChanged(string name, string email, string password, string id)
         {
-            var query = "UPDATE Membership SET UPDATE Membership SET name = @name, password = @password, email = @email WHERE email = @email";
+            var query = "UPDATE Membership SET name = @name, password = @password, email = @email WHERE id = @id";
             using (var connection = new SqlConnection(connectionString))
             using (var command = new SqlCommand(query, connection))
             {
                 command.Parameters.AddWithValue("@name", name);
                 command.Parameters.AddWithValue("@email", email);
                 command.Parameters.AddWithValue("@password", password);
-                
+                command.Parameters.AddWithValue("@id", id);
 
                 connection.Open();
                 command.ExecuteNonQuery();
-            }
+
+                var queryShow = "SELECT name, email, password FROM Membership WHERE id = @id";
+                using (var commandShow = new SqlCommand(queryShow, connection))
+                {
+                    string updateName = "";
+                    string updateEmail = "";
+                    string updatePassword = "";
+                    commandShow.Parameters.AddWithValue("@id", id);
+                    
+                    using (var reader = commandShow.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            updateName = (string)reader["name"];
+                            updateEmail = (string)reader["email"];
+                            updatePassword = (string)reader["password"];
+                           
+                            return Tuple.Create(updateName, updateEmail, updatePassword);
+
+                        }
+                    }
+
+                }
+            return null;
+            } 
         }
     }
 }

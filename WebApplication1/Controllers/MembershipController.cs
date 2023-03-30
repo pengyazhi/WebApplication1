@@ -1,15 +1,30 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
+using System.Diagnostics;
 using System.Linq;
+using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Script.Serialization;
 using System.Web.Security;
+using System.Web.UI;
+using System.Web.UI.WebControls;
 using WebApplication1.Models;
+
 
 namespace WebApplication1.Controllers
 {
+
     public class MembershipController : Controller
     {
+        public class MembershipDto
+        {
+            public string name { get; set; }
+            public string email { get; set; }
+            public string password { get; set; }
+            public string id { get; set; }
+        }
 
         private MembershipDB db; // 宣告全域變數
         public void ConnectDB()
@@ -34,11 +49,12 @@ namespace WebApplication1.Controllers
         [HttpPost]
         public ActionResult Login(string email, string password)
         {
-            ConnectDB(); 
-            string MembershipExist = db.IsMembershipExist(email, password);
+            ConnectDB();
+            dynamic MembershipExist = db.IsMembershipExist(email, password);
             if (MembershipExist != null)
             {
-                Session["Username"] = MembershipExist;
+                Session["Id"] = MembershipExist.Item2;
+                Session["Username"] = MembershipExist.Item1;
                 Session["Email"] = email;
                 Session["Password"] = password;
                 return RedirectToAction("Index", "Home");
@@ -57,27 +73,58 @@ namespace WebApplication1.Controllers
         }
 
         [HttpPost]
-        public ActionResult JoinStatus(string name, string email, string password)
+        public ActionResult JoinStatus(string name, string email, string password,string id)
         {
             ConnectDB();
             bool IsEmailSaved = db.IsEmailExist(email);
             if (IsEmailSaved)
             {
-                TempData["EmailExist"] = "此Email已經註冊";
                 return RedirectToAction("JoinMembership", "Membership");
             }
             else
             {
                 // 資料不存在，儲存資料並返回成功的 View
                 db.SaveMembership(name, email, password);
-                ViewBag.Message = "success";
-                return View();
+                Login(email, password);
+                
+                return RedirectToAction("Index", "Home");
             }
         }
-        public void UpdateMembership(string name, string email, string password)
+        public ActionResult UpdateMembership(string name, string email, string password, string id)
         {
+            
             ConnectDB();
-            db.IfMembershipChanged(name, email, password);
+            var updateData = db.IfMembershipChanged(name, email, password, id);
+            if (updateData != null)
+            {
+                Logout();
+                Login(email, password);
+                return RedirectToAction("Index", "Home");
+
+                /*Session["updateName"] = updateData.Item1;
+                Session["updateEmail"] = updateData.Item2;
+                Session["updatePassword"] = updateData.Item3;
+
+                return Json(new {
+                    status = "success",
+                    data = new
+                    {
+                        name = Session["updateName"],
+                        email = Session["updateEmail"],
+                        password = Session["updatePassword"]
+                    }
+                });*/
+            }
+            else
+            {
+                return null;
+                /*return Json(new
+                {
+                    status = "error",
+                    message = "Failed to update membership."
+                });*/
+            }
         }
+        
     }
 }

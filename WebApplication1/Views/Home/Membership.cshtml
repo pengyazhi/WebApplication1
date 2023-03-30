@@ -9,49 +9,107 @@
     <h3>會員資料</h3>
 
     @if (Session["Username"] != null)
-        {
-            <form action="/Membership/UpdateMembership" method="post">
-                <ul>
-                    <li><span id="name">會員名字 : </span><input id="name_value" value="@Session["Username"].ToString()" /></li>
-                    <li><span id="email">電子郵件 : </span><input id="email_value" value="@Session["Email"].ToString()" /></li>
-                    <li><span id="password">會員密碼 : </span><input id="password_value" value="@Session["Password"].ToString()" /></li>
-                </ul>
-            <input value="修改" type="button" id="revise" name="revise"/>
-            <input value="更新" type="submit" id="update" name="update" style="display:none"/>
-            <input value="清空" type="reset" id="clear" name="clear" style="display:none"/>
+    {
+        <form id="update_form" action="/Membership/UpdateMembership" method="post" onsubmit="return DataUpdateCheck()">
+            <ul>
+                <li><span id="id">會員編號 : </span><input id="id_value" name="id" value="@Session["Id"]" required/></li>
+                <li><span id="name">會員名字 : </span><input id="name_value" name="name" value="@Session["Username"]" required/></li>
+                <li><span id="email">電子郵件 : </span><input id="email_value" name="email" value="@Session["Email"]" required/></li>
+                <li><span id="password">會員密碼 : </span><input id="password_value" name="password" value="@Session["Password"]" required/></li>
+            </ul>
+            <div id="update_success"></div>
+            <input value="修改" type="button" id="revise" name="revise" />
+            <input value="更新" type="submit" id="update" name="update" style="display:none" />
+            <input value="重置" type="reset" id="clear" name="clear" style="display:none" />
             <input value="取消" type="button" id="cancel" name="cancel" style="display:none" />
-            </form>        
-        }
+        </form>
+    }
     
-    <script>
-        var reviseButton = document.getElementById('revise');
-        var updateButton = document.getElementById('update');
-        var clearButton = document.getElementById('clear');
-        var cancelButton = document.getElementById('cancel')
-        var nameInput = document.getElementById('name_value');
-        var emailInput = document.getElementById('email_value');
-        var passwordInput = document.getElementById('password_value');
-        emailInput.disabled = true;
-        nameInput.disabled = true;
-        passwordInput.disabled = true;
-        // 在頁面載入後註冊事件處理程序
-        window.addEventListener('load', function () {
-            // 當使用者按下修改按鈕時，啟用輸入欄位並顯示更新按鈕
-            reviseButton.addEventListener('click', function () {
-                nameInput.removeAttribute('disabled');
-                emailInput.removeAttribute('disabled');
-                passwordInput.removeAttribute('disabled');
-                updateButton.style.display = 'inline';
-                clearButton.style.display = 'inline';
-                cancelButton.style.display = 'inline';
-            });
+</div>
+<div>
+    <h3>訂單查詢</h3>
+    
+</div>
+
+<script>
+    var reviseButton = document.getElementById('revise');
+    var updateButton = document.getElementById('update');
+    var clearButton = document.getElementById('clear');
+    var cancelButton = document.getElementById('cancel');
+    var nameInput = document.getElementById('name_value');
+    var emailInput = document.getElementById('email_value');
+    var passwordInput = document.getElementById('password_value');
+    var updateForm = document.getElementById('update_form');
+    var idValue = document.getElementById('id_value');
+    idValue.readOnly = true;
+    
+
+        function setInputsReadOnly(isReadOnly) {
+            emailInput.readOnly = isReadOnly;
+            nameInput.readOnly = isReadOnly;
+            passwordInput.readOnly = isReadOnly;
+        }
+
+
+        setInputsReadOnly(true);  //會員資料唯讀
+
+        reviseButton.addEventListener('click', function () {
+            setInputsReadOnly(false); //會員資料可修改
+            updateButton.style.display = 'inline';
+            clearButton.style.display = 'inline';
+            cancelButton.style.display = 'inline';
+            reviseButton.style.display = 'none';
         });
+
         cancelButton.addEventListener('click', function () {
             location.reload();
         });
 
-    </script>
-</div>
+    function DataUpdateCheck() {
+        if (nameInput.value.trim() !== '' && emailInput.value.trim() !== '' && passwordInput.value.trim() !== '') {
+            alert("更新成功!");
+            return true;
+        } else {
+            alert("請輸入完整的資料");
+            return false;
+        }
+    }
+        
+        /*// 設定按下更新按鈕時的事件
+        updateButton.addEventListener('click', function (event) {
+            event.preventDefault();
+            // 取得表單資料
+            var formData = new FormData(updateForm);
+            // 發送 AJAX 請求
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST', '/Membership/UpdateMembership', true);
+            //xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState == 4 && xhr.status == 200) {
+                    var response = JSON.parse(xhr.responseText);
+                    if (response.status === 'success') {
+                        setInputsReadOnly(true);
+                        // 更新成功，顯示成功訊息
+                        alert("更新成功!");
+                        // 將最新資料顯示在畫面上
+                        nameInput.value = response.data.name;
+                        emailInput.value = response.data.email;
+                        passwordInput.value = response.data.password;
+                        updateButton.style.display = 'none';
+                        clearButton.style.display = 'none';
+                        cancelButton.style.display = 'none';
+                        reviseButton.style.display = 'inline';
+                    } else {
+                        // 更新失敗，顯示錯誤訊息
+                        alert('更新失敗，請稍後');
+                    }
+                }
+            }
+            xhr.send(formData);
+        });*/
 
-<div><h3>訂單查詢</h3></div>
+</script>
+
+
+
 

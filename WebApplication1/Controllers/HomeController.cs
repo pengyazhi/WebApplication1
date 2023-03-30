@@ -39,6 +39,10 @@ namespace WebApplication1.Controllers
         {
             return View();
         }
+        public ActionResult TrackList()
+        {
+            return View();
+        }
         public ActionResult ShoppingCart()
         {
             return View();

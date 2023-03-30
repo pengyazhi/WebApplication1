@@ -5,13 +5,11 @@
 
 <html>
 <head>
-
+    <link rel="stylesheet" href="\Content\emailError.css">
 </head>
 <body>
-    <!--
-        <span id="exist_email" style="color:red">@ViewBag.EmailExist</span>
-    -->
-    <form id="join_member" action="JoinStatus" method="post" onsubmit='return formCheck()'>
+   
+    <form id="joinFrom" action="JoinStatus" method="post" onsubmit="return formCheck()">
         <h2>加入會員</h2>
         <div>
             <span>姓名 :</span>
@@ -30,9 +28,10 @@
         const password1 = document.getElementById("password1");
         const password2 = document.getElementById("password2");
         const checkPassword = document.getElementById("wrongPassword");
-        const joinMember = document.getElementById("join_member");
+        const joinMember = document.getElementById("joinForm");
         const emailError = document.getElementById("email-error");
-        //const email = document.getElementById("email");
+        const submit = document.getElementById("submit");
+        const email = document.getElementById("email");
 
         $('#email').on('blur', function () {
             if ($('#email').val() !== '') {
@@ -44,8 +43,10 @@
                     success: function (emailExist) {
                         if (emailExist) {
                             $('#email-error').text('該email已存在');
+                            $('#email').css('border', '3px solid red');
                         } else {
                             $('#email-error').text('');
+                            $('#email').css('border', '1px solid gray');
                         }
                     }
                 });
@@ -54,17 +55,44 @@
         function passwordCheck() {
             if (password2.value !== password1.value) {
                 checkPassword.innerHTML = " *密碼輸入不符合,請重新輸入";
+                password2.style.border = "3px solid red";
             } else {
                 checkPassword.innerHTML = "";
+                password2.style.border = "1px solid gray";
             }
         }
         addEventListener('input', passwordCheck);
+
         function formCheck() {
             if (password2.value === password1.value && emailError.textContent.trim() === '') {
-                return true;
+                alert("註冊成功!");
+            } else if (emailError.textContent.trim() !== '' && password2.value === password1.value) {
+                emailError.className = "flash";
+                emailError.addEventListener("animationend", function () {
+                    emailError.className = "";
+                }, { once: true });
+
+                return false;
+            } else if (checkPassword.textContent.trim() !== '' && emailError.textContent.trim() === '') {
+                checkPassword.className = "flash";
+                checkPassword.addEventListener("animationend", function () {
+                    checkPassword.className = "";
+                }, { once: true });
+
+                return false;
             } else {
+                emailError.className = "flash";
+                emailError.addEventListener("animationend", function () {
+                    emailError.className = "";
+                }, { once: true });
+                checkPassword.className = "flash";
+                checkPassword.addEventListener("animationend", function () {
+                    checkPassword.className = "";
+                }, { once: true });
+
                 return false;
             }
+
         }
 
 

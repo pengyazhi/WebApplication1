@@ -7,7 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApplication1", "WebAppli
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "方案項目", "方案項目", "{62F8FEB6-FE4C-44D4-8D5B-895FE14BE2E6}"
 	ProjectSection(SolutionItems) = preProject
-		WebApplication1\SQLQuery4.sql = WebApplication1\SQLQuery4.sql
+		WebApplication1\Membership.sql = WebApplication1\Membership.sql
 	EndProjectSection
 EndProject
 Global

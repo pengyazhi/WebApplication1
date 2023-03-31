@@ -156,6 +156,11 @@
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Pictures\DIY_Title.png" />
+    <Content Include="Pictures\ILLUMINATING TEA 皇家玫瑰大吉嶺花茶.png" />
+    <Content Include="Pictures\常溫_Title.png" />
+    <Content Include="Pictures\禮盒_Title.png" />
+    <Content Include="Pictures\鮮奶油蛋糕_Title.png" />
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />
     <Content Include="Scripts\bootstrap.esm.js" />

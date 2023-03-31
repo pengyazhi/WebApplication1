@@ -6,29 +6,29 @@
 
 <h1>會員中心</h1>
 <div>
-    <h3>會員資料</h3>
+    
+    <h3 class="btn btn-outline-dark" data-bs-toggle="collapse" href="#update_form" role="button" aria-expanded="false" aria-controls="update_form">會員資料 &raquo;</h3>
 
-    @if (Session["Username"] != null)
-    {
-        <form id="update_form" action="/Membership/UpdateMembership" method="post" onsubmit="return DataUpdateCheck()">
-            <ul>
-                <li><span id="id">會員編號 : </span><input id="id_value" name="id" value="@Session["Id"]" required/></li>
-                <li><span id="name">會員名字 : </span><input id="name_value" name="name" value="@Session["Username"]" required/></li>
-                <li><span id="email">電子郵件 : </span><input id="email_value" name="email" value="@Session["Email"]" required/></li>
-                <li><span id="password">會員密碼 : </span><input id="password_value" name="password" value="@Session["Password"]" required/></li>
-            </ul>
-            <div id="update_success"></div>
-            <input value="修改" type="button" id="revise" name="revise" />
-            <input value="更新" type="submit" id="update" name="update" style="display:none" />
-            <input value="重置" type="reset" id="clear" name="clear" style="display:none" />
-            <input value="取消" type="button" id="cancel" name="cancel" style="display:none" />
-        </form>
-    }
+        @if (Session["Username"] != null)
+        {
+            <form class="collapse" id="update_form" action="/Membership/UpdateMembership" method="post" onsubmit="return DataUpdateCheck()">
+                <ul>
+                    <li><span id="id">會員編號 : </span><input id="id_value" name="id" value="@Session["Id"]" required /></li>
+                    <li><span id="name">會員名字 : </span><input id="name_value" name="name" value="@Session["Username"]" required /></li>
+                    <li><span id="email">電子郵件 : </span><input id="email_value" name="email" value="@Session["Email"]" required /></li>
+                    <li><span id="password">會員密碼 : </span><input id="password_value" name="password" value="@Session["Password"]" required /></li>
+                </ul>
+                <div id="update_success"></div>
+                <input value="修改" type="button" id="revise" name="revise" />
+                <input value="更新" type="submit" id="update" name="update" style="display:none" />
+                <input value="重置" type="reset" id="clear" name="clear" style="display:none" />
+                <input value="取消" type="button" id="cancel" name="cancel" style="display:none" />
+            </form>
+        }
     
 </div>
 <div>
-    <h3>訂單查詢</h3>
-    
+    <h3 class="btn btn-outline-dark" data-bs-toggle="collapse" href="#" role="button" aria-expanded="false" aria-controls="#">訂單查詢 &raquo;</h3>
 </div>
 
 <script>

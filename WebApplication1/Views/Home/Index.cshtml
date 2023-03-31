@@ -1,33 +1,90 @@
 ﻿@{
     ViewBag.Title = "Home Page";
 }
-
+<style>
+    h3{
+        font-weight:bold;
+    }
+</style>
 <main>
     <section class="row" aria-labelledby="aspnetTitle">
-        <h1 id="title">ASP.NET</h1>
-        <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
-        <p><a href="https://asp.net" class="btn btn-primary btn-md">Learn more &raquo;</a></p>
+        <h1 id="title">_ _手做甜點</h1>
+        <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-indicators">
+                <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="3" aria-label="Slide 4"></button>
+            </div>
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <img src="\Pictures\常溫_Title.png" class="d-block w-100" alt="常溫甜點carousel">
+                    <div class="carousel-caption d-none d-md-block">
+                        <h3>常溫甜點</h3>
+                        <p><a class="btn btn-outline-light" href="#">餅乾</a>　
+                        <a class="btn btn-outline-light" href="#">磅蛋糕</a>　
+                        <a class="btn btn-outline-light" href="#">瑪德蓮</a>　
+                        <a class="btn btn-outline-light" href="#">可麗露</a>
+                        </p>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <img src="\Pictures\鮮奶油蛋糕_Title.png" class="d-block w-100" alt="鮮奶油蛋糕carousel">
+                    <div class="carousel-caption d-none d-md-block">
+                        <h3>鮮奶油蛋糕</h3>
+                        <p><a class="btn btn-outline-light" href="#">當季水果蛋糕</a>　<a class="btn btn-outline-light" href="#">客製化蛋糕</a></p>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <img src="\Pictures\禮盒_Title.png" class="d-block w-100" alt="禮盒carousel">
+                    <div class="carousel-caption d-none d-md-block">
+                        <h3>_ _ 禮盒</h3>
+                        <p><a class="btn btn-outline-light" href="#">禮盒全品項</a></p>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <img src="\Pictures\DIY_Title.png" class="d-block w-100" alt="DIYcarousel">
+                    <div class="carousel-caption d-none d-md-block">
+                        <h3>DIY教室</h3>
+                        <p><a class="btn btn-outline-light" href="#">了解課程</a>　<a class="btn btn-outline-light" href="#">立即預約</a>"</p>
+                    </div>
+                </div>
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+        </div>
+        
     </section>
 
     <div class="row">
-        <section class="col-md-4" aria-labelledby="gettingStartedTitle">
-            <h2 id="gettingStartedTitle">Getting started</h2>
+        <section class="col-md-3 p-3" aria-labelledby="gettingStartedTitle">
+            <h2 id="gettingStartedTitle">常溫系列</h2>
             <p>
-                ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
-                enables a clean separation of concerns and gives you full control over markup
-                for enjoyable, agile development.
+                _ _ 手做甜點提供餅乾，磅蛋糕，瑪德蓮，可麗露等常溫甜點，提供門市自取及宅配服務
             </p>
-            <p><a class="btn btn-outline-dark" href="https://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
+            <p><a class="btn btn-outline-dark" href="">常溫甜點全品項 &raquo;</a></p>
         </section>
-        <section class="col-md-4" aria-labelledby="librariesTitle">
-            <h2 id="librariesTitle">Get more libraries</h2>
-            <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
-            <p><a class="btn btn-outline-dark" href="https://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
+        <section class="col-md-3 p-3" aria-labelledby="librariesTitle">
+            <h2 id="librariesTitle">鮮奶油蛋糕</h2>
+            <p> _ _ 手做甜點的鮮奶油蛋糕，採用進口鮮奶油製成，搭配鬆軟的戚風蛋糕及當季水果，歡迎網路預訂後自取！</p>
+            <p><a class="btn btn-outline-dark" href="">鮮奶油蛋糕全品項 &raquo;</a></p>
         </section>
-        <section class="col-md-4" aria-labelledby="hostingTitle">
-            <h2 id="hostingTitle">Web Hosting</h2>
-            <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
-            <p><a class="btn btn-outline-dark" href="https://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
+        <section class="col-md-3 p-3" aria-labelledby="hostingTitle">
+            <h2 id="hostingTitle">禮盒系列</h2>
+            <p>逢年過節、拜訪客戶不知道送什麼伴手禮嗎? _ _ 手做甜點提供您常溫甜點搭配咖啡禮盒，提供門市自取及宅配服務！</p>
+            <p><a class="btn btn-outline-dark" href="">禮盒全品項 &raquo;</a></p>
+        </section>
+        <section class="col-md-3 p-3" aria-labelledby="">
+            <h2 id="">手作教室</h2>
+            <p>喜歡準備驚喜的您，_ _ 手做甜點提供您場地及老師，為心愛的朋友家人獻上您親手做的甜點，讓他們感受到您滿滿的心意！</p>
+            <p><a class="btn btn-outline-dark" href="">了解課程 &raquo;</a></p>
+            <p><a class="btn btn-outline-dark" href="">立即預約 &raquo;</a></p>
         </section>
     </div>
 </main>

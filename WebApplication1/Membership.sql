@@ -1,1 +1,2 @@
-SELECT * FROM Membership ;
+
+SELECT * FROM Membership;
